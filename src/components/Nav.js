@@ -20,7 +20,7 @@ export default class Nav extends Component {
     let data = this.props.data;
     data.forEach((item)=>{
       list.push(<li key={item.id}><a 
-        href=""
+        href="#"
         onClick={(e)=>{
           e.preventDefault();
           this.props.onChangePage(item.id);
@@ -34,7 +34,7 @@ export default class Nav extends Component {
     while(i<data.length){
       list.push(<li key={data[i].id}><a 
         data-id={data[i].id-1}
-        href=""
+        href="#"
         onClick={(e)=>{
           e.preventDefault();
           this.props.onChangePage(e.target.dataset.id);
