@@ -13,6 +13,7 @@ export default class Article extends Component {
         <article>
           <h2>{this.props.data.title}</h2>
           <p>{this.props.data.desc}</p>
+          <p>난이도: {this.props.data.difficulty}</p>
         
           <div className={classNames}>
             <hr />

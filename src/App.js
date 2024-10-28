@@ -20,10 +20,10 @@ class App extends Component {
       subject: { title: 'React', desc: 'Single page Application' },
       welcome: { title: 'Welcome', desc: "Welcome to React" },
       menus: [
-        { id: 1, title: 'HTML', desc: 'Hypertext Markup Language' },
-        { id: 2, title: 'CSS', desc: 'CSS for design' },
-        { id: 3, title: 'javascript', desc: 'Javascript for interaction' },
-        { id: 4, title: 'React', desc: 'Single Page Application' }
+        { id: 1, title: 'HTML', desc: 'Hypertext Markup Language', difficulty: 1 },
+        { id: 2, title: 'CSS', desc: 'CSS for design', difficulty: 2 },
+        { id: 3, title: 'javascript', desc: 'Javascript for interaction', difficulty: 3 },
+        { id: 4, title: 'React', desc: 'Single Page Application', difficulty: 4 }
       ]
     };
   }
@@ -50,7 +50,7 @@ class App extends Component {
       }}
       ></Article>;
     } else if (this.state.mode === 'create') {
-      _article = <CreateArticle onsubmit={(_title, _desc) => {
+      _article = <CreateArticle onsubmit={(_title, _desc, _diff) => {
         //지금은 APP이 계속해서 rendering되면서 불필요한 렌더링을 하고있었음
         // 그래서 기존 배열을 복사 + 새 배열 -> 기존 배열원본과 비교
         //let c = a.concat(b)
@@ -73,7 +73,7 @@ class App extends Component {
         // );
 
         //스프레드 방법
-        let _menus = [...this.state.menus, { id: this.max_menu_id, title: _title, desc: _desc }];
+        let _menus = [...this.state.menus, { id: this.max_menu_id, title: _title, desc: _desc , difficulty: _diff }];
 
 
         this.setState({
@@ -84,11 +84,11 @@ class App extends Component {
       }}> </CreateArticle>
     } else if (this.state.mode === 'modify') {
       let _data = this.getReadArticle();
-      _article = <UpdateArticle data={_data} onsubmit={(_title, _desc)=>{
+      _article = <UpdateArticle data={_data} onsubmit={(_title, _desc, _diff) => {
 
         let _menus = [...this.state.menus];
         const idx = this.state.menus.findIndex(item => item.id === this.state.selected_id);
-        _menus[idx] = { id: this.state.selected_id, title: _title, desc: _desc }//값 수정
+        _menus[idx] = { id: this.state.selected_id, title: _title, desc: _desc , difficulty: _diff}//값 수정
         this.setState({
           menus: _menus,
           mode: 'read'
@@ -110,10 +110,10 @@ class App extends Component {
       if (window.confirm('정말 삭제할까요?')) {
         let _menus = [...this.state.menus];
         let id = this.state.menus.findIndex(item => item.id === this.state.selected_id);
-        _menus.splice(id,1)
+        _menus.splice(id, 1)
 
         this.setState({
-          menus:_menus,
+          menus: _menus,
           mode: 'welcome',
           selected_id: 0
         });
@@ -121,9 +121,9 @@ class App extends Component {
       } else {
         alert('취소했습니다.');
         this.setState({
-        mode:'welcome',
-        selected_id:0
-      })
+          mode: 'welcome',
+          selected_id: 0
+        })
       }
     }
 
@@ -139,6 +139,7 @@ class App extends Component {
         <Myheader
           title={this.state.subject.title}
           desc={this.state.subject.desc}
+          difficulty={this.state.subject.difficulty}
           onChangePage={(id) => {
             this.setState({
               mode: 'welcome'

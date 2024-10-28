@@ -12,7 +12,8 @@ export default class createArticle extends Component {
                 e.preventDefault();         
                 this.props.onsubmit(
                   e.target.title.value,
-                  e.target.desc.value
+                  e.target.desc.value,
+                  e.target.difficulty.value
                 );
               }}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -22,6 +23,10 @@ export default class createArticle extends Component {
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                   <Form.Label>Description</Form.Label>
                   <Form.Control as="textarea" name="desc" rows={3} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+                  <Form.Label>Difficulty</Form.Label>
+                  <Form.Control type="number" name="difficulty" min="0" max="5" placeholder="0~5까지 숫자를 넣어주세요" />
                 </Form.Group>
                 <Button type="submit" variant="primary">submit</Button>
               </Form>
