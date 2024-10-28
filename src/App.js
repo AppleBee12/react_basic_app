@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import Myheader from './components/Myheader';
 import Nav from './components/Nav';
 import Article from './components/Article';
@@ -17,7 +16,7 @@ class App extends Component {
     this.state = {
       mode: 'welcome',
       selected_id: 0,
-      
+
       subject: { title: 'React', desc: 'Single page Application' },
       welcome: { title: 'Welcome', desc: "Welcome to React" },
       menus: [
@@ -29,13 +28,13 @@ class App extends Component {
   }
   //여기부터는 자바스크립트 문법 쓸 수 있으나, render 위쪽 return 아래쪽으로는 입력불가
   getReadArticles() {
-    const idx = this.state.menus.findIndex(item => item.id == this.state.selected_id);
+    const idx = this.state.menus.findIndex(item => item.id === this.state.selected_id);
     let data = this.state.menus[idx];
     console.log(data);
     return data;
   }
   getArticles() {
-    let _title, _desc, _article = null;
+    let _article = null;
     if (this.state.mode === 'welcome') {
       let _data = this.state.welcome;
       _article = <Article data={_data} mode={this.state.mode} ></Article>;
@@ -85,7 +84,7 @@ class App extends Component {
       let _data = this.getReadArticle();
       _article = <UpdateArticle title={_data.title} desc={_data.desc} onsubmit={(_title, _desc) => {
         let _menus = [...this.state.menus];
-        const idx = this.state.menus.findIndex(item => item.id == this.state.selected_id);
+        const idx = this.state.menus.findIndex(item => item.id === this.state.selected_id);
         _menus[idx] = { id: this.state.selected_id, title: _title, desc: _desc }//값 수정
         this.setState({
           menus: _menus,
@@ -107,7 +106,7 @@ class App extends Component {
   */
       if (window.confirm('정말 삭제할까요?')) {
         let _menus = [...this.state.menus];
-        let id = this.state.menus.findIndex(item => item.id == this.state.selected_id);
+        let id = this.state.menus.findIndex(item => item.id === this.state.selected_id);
         _menus.splice(id, 1)
         this.setState({
           menus: _menus,
